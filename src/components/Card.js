@@ -1,9 +1,10 @@
 import React from 'react';
+import './Card.css';
 
 const Card = ({ modules }) => {
-  const handlButtonClick = (e) => {
-    console.log(e.target.id);
-  };
+  const deploy = () => {};
+
+  const handlButtonClick = (e) => {};
   return (
     <div className='card-wrapper'>
       {modules.map((module, idx) => {

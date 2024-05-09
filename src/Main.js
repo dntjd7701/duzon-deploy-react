@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import backgroundImage from './assets/1.jpg';
 import Card from './components/Card';
 
-function App() {
+function Main() {
   const [modules, setModules] = useState([]);
   const [formData, setFormData] = useState({
     host: '',
@@ -30,8 +30,8 @@ function App() {
   });
 
   useEffect(() => {
-    const host = window.localStorage.getItem('HOST') || '';
-    const port = +window.localStorage.getItem('PORT') || '';
+    const host = window.localStorage.getItem('HOST') || 'localhost';
+    const port = +window.localStorage.getItem('PORT') || '7008';
 
     setFormData({
       host,
@@ -99,4 +99,4 @@ function App() {
   );
 }
 
-export default App;
+export default Main;
