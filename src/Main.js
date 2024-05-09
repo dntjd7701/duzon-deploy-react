@@ -2,7 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import backgroundImage from './assets/1.jpg';
 import { Context } from './context/Context';
-import CardWrapper from './components/CardWrapper';
+import CardWrapper from './components/Card/CardWrapper';
+import Loading from './components/Loading/Loading';
 
 function Main() {
   const [modules, setModules] = useState([]);
@@ -18,15 +19,6 @@ function Main() {
       console.error(error);
     }
   };
-
-  /**
-   * @param {string} moduleName-production|logis..
-   * @param {target} target-front|back..
-   */
-  const createParam = (moduleName, target) => ({
-    moduleName,
-    target,
-  });
 
   useEffect(() => {
     const host = window.localStorage.getItem('HOST') || '10.51.121.74';

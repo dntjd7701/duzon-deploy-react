@@ -1,0 +1,29 @@
+.loading-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: transparent;
+}
+.loading-spinner {
+  display: flex;
+  width: 25px;
+  height: 25px;
+  border: 5px solid #b9f5db;
+  border-top: 5px solid transparent;
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ex-box {
+  padding: 10px;
+  border: 1px solid black;
+}

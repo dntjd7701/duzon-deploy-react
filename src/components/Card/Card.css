@@ -16,7 +16,10 @@
     box-shadow: 15px 20px 30px rgb(197 239 214);
     transition: all 0.5s ease;
 
-    label {
+    .card-label {
+      text-decoration: none;
+      cursor: pointer;
+      color: white;
       padding: 40px;
       font-size: 2.5rem;
     }
@@ -31,7 +34,7 @@
         }
         cursor: pointer;
         width: 40%;
-        height: 40px;
+        height: 50px;
         border: 1px solid black;
         border-radius: 10%;
         background-color: transparent;
