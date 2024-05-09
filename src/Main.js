@@ -1,19 +1,18 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import backgroundImage from './assets/1.jpg';
-import Card from './components/Card';
+import { Context } from './context/Context';
+import CardWrapper from './components/CardWrapper';
 
 function Main() {
   const [modules, setModules] = useState([]);
-  const [formData, setFormData] = useState({
-    host: '',
-    port: '',
-  });
+  const [formData, setFormData] = useState('');
   const [url, setUrl] = useState('');
 
   const fetchModules = async () => {
     try {
-      const modules = await axios.get(`${url}/modules`);
+      if (!url) return;
+      const modules = await axios.get(`http://${url}/modules`);
       setModules(modules.data);
     } catch (error) {
       console.error(error);
@@ -30,14 +29,9 @@ function Main() {
   });
 
   useEffect(() => {
-    const host = window.localStorage.getItem('HOST') || 'localhost';
-    const port = +window.localStorage.getItem('PORT') || '7008';
-
-    setFormData({
-      host,
-      port,
-    });
-    setUrl(`http://${host}:${port}`);
+    const host = window.localStorage.getItem('HOST') || '10.51.121.74';
+    setFormData(host);
+    setUrl(host);
   }, []);
 
   useEffect(() => {
@@ -45,22 +39,22 @@ function Main() {
   }, [url]);
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const { value } = event.target;
+    console.debug('value:', value);
+    setFormData(value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    window.localStorage.setItem('HOST', `${formData.host}`);
-    window.localStorage.setItem('PORT', `${formData.port}`);
-    setUrl(`http://${formData.host}:${formData.port}`);
+    window.localStorage.setItem('HOST', `${formData}`);
+    setUrl(formData);
   };
 
   return (
-    <>
+    <Context.Provider
+      value={{
+        url,
+      }}>
       <div class='background'>
         <img
           src={backgroundImage}
@@ -77,16 +71,7 @@ function Main() {
           <input
             type='text'
             name='host'
-            value={formData.host}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          PORT:
-          <input
-            type='number'
-            name='port'
-            value={formData.port}
+            value={formData}
             onChange={handleChange}
           />
         </label>
@@ -94,8 +79,8 @@ function Main() {
       </form>
 
       {/* CARD */}
-      <Card modules={modules} />
-    </>
+      <CardWrapper modules={modules} />
+    </Context.Provider>
   );
 }
 
