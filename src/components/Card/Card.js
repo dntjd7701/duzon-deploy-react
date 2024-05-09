@@ -19,6 +19,7 @@ const Card = ({ module }) => {
           return (
             <CardButton
               key={target}
+              module={module}
               target={target}
             />
           );

@@ -21,7 +21,7 @@ function Main() {
   };
 
   useEffect(() => {
-    const host = window.localStorage.getItem('HOST') || '10.51.121.74';
+    const host = window.localStorage.getItem('HOST') || process.env.REACT_APP_HOST;
     setFormData(host);
     setUrl(host);
   }, []);
