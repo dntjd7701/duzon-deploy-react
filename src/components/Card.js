@@ -6,11 +6,17 @@ import { Context } from '../context/Context';
 const Card = ({ module }) => {
   const { url } = useContext(Context);
 
+  /**
+   * @param {string} moduleName-production|logis..
+   * @param {target} target-front|back..
+   */
+  const createParam = (module, target) => ({
+    module,
+    target,
+  });
+
   const handlButtonClick = async (e) => {
-    const { data } = await axios.post(`${url}/build`, {
-      module,
-      target: e.target.id,
-    });
+    const { data } = await axios.post(`https://${url}/build`, createParam(module, e.target.id));
   };
 
   return (

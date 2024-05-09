@@ -12,7 +12,7 @@ function Main() {
   const fetchModules = async () => {
     try {
       if (!url) return;
-      const modules = await axios.get(`http://${url}/modules`);
+      const modules = await axios.get(`https://${url}/modules`);
       setModules(modules.data);
     } catch (error) {
       console.error(error);
