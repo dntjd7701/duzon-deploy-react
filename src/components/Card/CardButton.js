@@ -24,7 +24,9 @@ const CardButton = ({ module, target }) => {
     toggleLoading(target);
     console.log(module, target);
     const { data } = await axios.post(`https://${url}/build`, { module, target });
-    window.alert(`에러 발생. 강우성 연구원한테 문의 부탁드립니다.${data.state}`);
+    if (data.state !== 0) {
+      window.alert(`에러 발생. 강우성 연구원한테 문의 부탁드립니다.${data.state}`);
+    }
     toggleLoading(target);
   };
   return (

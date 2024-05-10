@@ -1,7 +1,9 @@
 .card-wrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25%, auto));
+  gap: 100px 0px;
+  justify-items: center;
   align-items: center;
-  justify-content: space-around;
   position: relative;
 
   .card {
