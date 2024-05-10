@@ -67,6 +67,12 @@ function Main() {
           />
         </label>
         <button type='submit'>Submit</button>
+        <button
+          onClick={async () => {
+            await axios.post(`https://${url}/ssh`, {});
+          }}>
+          connection check
+        </button>
       </form>
 
       {/* CARD */}
