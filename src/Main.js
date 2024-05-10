@@ -3,11 +3,20 @@ import { useEffect, useState } from 'react';
 import backgroundImage from './assets/1.jpg';
 import CardWrapper from './components/Card/CardWrapper';
 import { Context } from './context/Context';
+import Modal from './components/Modal/Modal';
 
 function Main() {
   const [modules, setModules] = useState([]);
   const [formData, setFormData] = useState('');
   const [url, setUrl] = useState('');
+  const [responseData, setResponseData] = useState({});
+  const [modal, setModal] = useState({
+    open: false,
+    state: 0,
+    data: [],
+    module: '',
+    target: '',
+  });
 
   const fetchModules = async () => {
     try {
@@ -45,6 +54,10 @@ function Main() {
     <Context.Provider
       value={{
         url,
+        responseData,
+        setResponseData,
+        modal,
+        setModal,
       }}>
       <div class='background'>
         <img
@@ -73,10 +86,20 @@ function Main() {
           }}>
           connection check
         </button>
+        <a
+          style={{ textDecoration: 'none', color: 'white', cursor: 'pointer' }}
+          className='card-label'
+          href={`https://dev.amaranth10.co.kr/devservermanager/`}
+          target='_blank'
+          rel='noreferrer'>
+          Amaranth10 개발 서버 매니저
+        </a>
       </form>
 
       {/* CARD */}
       <CardWrapper modules={modules} />
+
+      <Modal />
     </Context.Provider>
   );
 }

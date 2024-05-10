@@ -4,7 +4,7 @@ import axios from 'axios';
 import Loading from '../Loading/Loading';
 
 const CardButton = ({ module, target }) => {
-  const { url } = useContext(Context);
+  const { url, setModal } = useContext(Context);
   const [loading, setLoading] = useState({
     toggle: false,
     target: '',
@@ -24,13 +24,23 @@ const CardButton = ({ module, target }) => {
     toggleLoading(target);
     console.log(module, target);
     const { data } = await axios.post(`https://${url}/build`, { module, target });
-    if (data.state !== 0) {
-      window.alert(`에러 발생. 강우성 연구원한테 문의 부탁드립니다.${data.state}`);
-    }
+    setModal((prevState) => {
+      return {
+        ...prevState,
+        open: true,
+        state: data.state,
+        data: data.data,
+        module,
+        target,
+      };
+    });
+
+    console.debug('data:', data);
     toggleLoading(target);
   };
   return (
     <button
+      disabled={['logiscustom', 'hospital'].includes(module)}
       key={target}
       id={target}
       onClick={handlButtonClick}>
