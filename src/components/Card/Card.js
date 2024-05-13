@@ -1,8 +1,11 @@
 import React from 'react';
 import CardButton from './CardButton';
 import './Card.css';
+import { oldServerModules } from '../../Utils/Utils';
 
 const Card = ({ module }) => {
+  const handleRestartBtn = () => {};
+
   return (
     <div
       key={module}
@@ -24,6 +27,15 @@ const Card = ({ module }) => {
             />
           );
         })}
+        <button
+          disabled={!oldServerModules.includes(module)}
+          key={'restart'}
+          id={'restart'}
+          onClick={handleRestartBtn}>
+          {/* {loading.toggle && target === loading.target ? <Loading /> : target */}
+          {/* } */}
+          Restart
+        </button>
       </div>
     </div>
   );

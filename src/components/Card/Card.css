@@ -34,9 +34,8 @@
     justify-content: space-around;
     width: 100%;
     margin-top: 20px; /* 변경된 부분 */
-
     button {
-      width: 30%;
+      width: 80px;
       &:hover {
         background-color: rgba(183, 240, 177, 1);
       }
