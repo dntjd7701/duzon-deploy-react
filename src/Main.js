@@ -98,7 +98,7 @@ function Main() {
       </form>
       {/* form */}
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '50px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '50px' }}>
         <h3>1. logiscustom, hospital 작업 중</h3>
         <h3>2. 로그 작업</h3>
       </div>
