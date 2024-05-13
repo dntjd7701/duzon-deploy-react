@@ -3,11 +3,20 @@ import { Context } from '../../context/Context';
 import axios from 'axios';
 import Loading from '../Loading/Loading';
 import { oldServerModules } from '../../Utils/Utils';
+import Modal from '../Modal/Modal';
 
 const CardButton = ({ module, target }) => {
-  const { url, setModal } = useContext(Context);
+  const { url } = useContext(Context);
   const [loading, setLoading] = useState({
     toggle: false,
+    target: '',
+  });
+  const [modal, setModal] = useState({
+    open: false,
+    title: '',
+    state: 0,
+    data: [],
+    module: '',
     target: '',
   });
 
@@ -24,9 +33,19 @@ const CardButton = ({ module, target }) => {
     try {
       const { data } = await axios.post(`https://${url}/build`, { module, target });
       if (data.state === 0) {
-        return deploy();
+        await deploy();
       } else {
-        return data;
+        setModal((prevState) => {
+          return {
+            ...prevState,
+            open: true,
+            title: '빌드 실패',
+            state: data.state,
+            data: data.data,
+            module,
+            target,
+          };
+        });
       }
     } catch (error) {
       console.error(error);
@@ -36,59 +55,78 @@ const CardButton = ({ module, target }) => {
   const deploy = async () => {
     try {
       const { data } = await axios.post(`https://${url}/deploy`, { module, target });
-      return data;
+      setModal((prevState) => {
+        return {
+          ...prevState,
+          open: true,
+          title: data.state === 0 ? '배포 성공' : '배포 실패',
+          state: data.state,
+          data: data.data,
+          module,
+          target,
+        };
+      });
     } catch (error) {
       console.error(error);
     }
   };
 
   const restart = async () => {
-    const { data } = await axios.post(`https://${url}/restart`, { module, target: 'restart' });
-    setModal((prevState) => {
-      return {
-        ...prevState,
-        open: true,
-        title: `${module} 재구동 ${data.state === 0 ? '성공' : '실패'}`,
-        state: data.state,
-        data: data.data,
-        module,
-        target,
-      };
-    });
-    return data;
+    try {
+      const { data } = await axios.post(`https://${url}/restart`, { module, target: 'restart' });
+      setModal((prevState) => {
+        return {
+          ...prevState,
+          open: true,
+          title: data.state === 0 ? '재구동 성공' : '재구동 실패',
+          state: data.state,
+          data: data.data,
+          module,
+          target,
+        };
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handlButtonClick = async (e) => {
     const target = e.target.id;
     toggleLoading(target);
-    let result;
     if (target === 'restart') {
-      result = await restart();
+      await restart();
     } else {
-      result = await build();
-      setModal((prevState) => {
-        return {
-          ...prevState,
-          open: true,
-          state: result.state,
-          data: result.data,
-          module,
-          target,
-        };
-      });
+      await build();
     }
 
     toggleLoading(target);
   };
   return (
-    <button
-      className='card-button'
-      disabled={target === 'restart' && !oldServerModules.includes(module)}
-      key={target}
-      id={target}
-      onClick={handlButtonClick}>
-      {loading.toggle && target === loading.target ? <Loading /> : target}
-    </button>
+    <>
+      <button
+        className='card-button'
+        disabled={target === 'restart' && !oldServerModules.includes(module)}
+        key={target}
+        id={target}
+        onClick={handlButtonClick}>
+        {loading.toggle && target === loading.target ? <Loading /> : target}
+      </button>
+
+      {modal.open && (
+        <Modal
+          {...modal}
+          setModal={(obj = {}) => {
+            setModal((prevState) => {
+              return {
+                ...prevState,
+                ...obj,
+                open: false,
+              };
+            });
+          }}
+        />
+      )}
+    </>
   );
 };
 

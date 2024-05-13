@@ -4,23 +4,22 @@ import { Context } from '../../context/Context';
 import axios from 'axios';
 import Loading from '../Loading/Loading';
 
-const Modal = () => {
-  const { modal, setModal, url } = useContext(Context);
+const Modal = ({ title, data = [], setModal, state, module, target }) => {
+  const { url } = useContext(Context);
   const [loading, setLoading] = useState(false);
 
   const isSuccess = () => {
-    return modal.state === 0;
+    return state === 0;
   };
 
   const handleReDeploy = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post(`https://${url}/deploy`, { module: modal.module, target: modal.target });
+      const { data } = await axios.post(`https://${url}/deploy`, { module, target });
       setLoading(false);
       setModal((prevState) => {
         return {
           ...prevState,
-          open: true,
           state: data.state,
           data: data.data,
         };
@@ -30,9 +29,13 @@ const Modal = () => {
     }
   };
 
-  return modal.open ? (
+  return (
     <div className='modal'>
-      {modal.title ? <h2>{modal.title}</h2> : <h2> {isSuccess() ? '✅ 배포성공' : modal.state === -1 ? '❗️빌드실패' : '🚫 배포실패'} </h2>}
+      <h2>
+        {isSuccess() ? '✅ ' : '❌ '}
+        {module && target ? `${module}_${target}::` : ''}
+        {title}
+      </h2>
       {!isSuccess() && (
         <button
           className='reDeploy-button'
@@ -43,24 +46,17 @@ const Modal = () => {
       <button
         className='close-button'
         onClick={() => {
-          setModal((prevState) => {
-            return {
-              ...prevState,
-              open: false,
-            };
-          });
+          setModal();
         }}>
         ❌
       </button>
 
       <div className='text-area'>
-        {modal.data.map((v) => {
+        {data.map((v) => {
           return <h3>{v}</h3>;
         })}
       </div>
     </div>
-  ) : (
-    <></>
   );
 };
 

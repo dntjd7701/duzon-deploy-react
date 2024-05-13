@@ -12,6 +12,7 @@ function Main() {
   const [responseData, setResponseData] = useState({});
   const [modal, setModal] = useState({
     open: false,
+    title: '',
     state: 0,
     data: [],
     module: '',
@@ -29,7 +30,6 @@ function Main() {
   };
 
   useEffect(() => {
-    // const host = window.localStorage.getItem('HOST') || process.env.REACT_APP_HOST;
     const host = process.env.REACT_APP_HOST;
     setFormData(host);
     setUrl(host);
@@ -46,7 +46,6 @@ function Main() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // window.localStorage.setItem('HOST', `${formData}`);
     setUrl(formData);
   };
 
@@ -56,8 +55,6 @@ function Main() {
         url,
         responseData,
         setResponseData,
-        modal,
-        setModal,
       }}>
       <div class='background'>
         <img
@@ -117,7 +114,20 @@ function Main() {
       {/* CARD */}
       <CardWrapper modules={modules} />
 
-      <Modal />
+      {modal.open && (
+        <Modal
+          {...modal}
+          setModal={(obj = {}) => {
+            setModal((prevState) => {
+              return {
+                ...prevState,
+                ...obj,
+                open: false,
+              };
+            });
+          }}
+        />
+      )}
     </Context.Provider>
   );
 }

@@ -5,7 +5,7 @@
   gap: 100px 20px; /* 변경된 부분 */
   justify-items: center;
   align-items: center;
-  position: relative;
+  /* position: relative; */
 }
 
 .card {
