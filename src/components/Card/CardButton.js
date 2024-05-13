@@ -43,7 +43,18 @@ const CardButton = ({ module, target }) => {
   };
 
   const restart = async () => {
-    const { data } = await axios.post(`https://${url}/restart`, { module, target });
+    const { data } = await axios.post(`https://${url}/restart`, { module, target: 'restart' });
+    setModal((prevState) => {
+      return {
+        ...prevState,
+        open: true,
+        title: `${module} 재구동 ${data.state === 0 ? '성공' : '실패'}`,
+        state: data.state,
+        data: data.data,
+        module,
+        target,
+      };
+    });
     return data;
   };
 
@@ -55,7 +66,6 @@ const CardButton = ({ module, target }) => {
       result = await restart();
     } else {
       result = await build();
-      console.debug('result:', result);
       setModal((prevState) => {
         return {
           ...prevState,
@@ -67,6 +77,7 @@ const CardButton = ({ module, target }) => {
         };
       });
     }
+
     toggleLoading(target);
   };
   return (

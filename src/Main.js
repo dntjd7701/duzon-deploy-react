@@ -21,8 +21,8 @@ function Main() {
   const fetchModules = async () => {
     try {
       if (!url) return;
-      const modules = await axios.get(`https://${url}/modules`);
-      setModules(modules.data);
+      const { data } = await axios.get(`https://${url}/modules`);
+      setModules(data.data);
     } catch (error) {
       console.error(error);
     }
@@ -83,7 +83,17 @@ function Main() {
         <button type='submit'>Submit</button>
         <button
           onClick={async () => {
-            await axios.post(`https://${url}/ssh`, {});
+            console.debug('url:', url);
+            const { data } = await axios.post(`https://${url}/ssh`, {});
+            setModal((prevState) => {
+              return {
+                ...prevState,
+                open: true,
+                title: data.state === 0 ? 'Connection on' : 'Connection off',
+                state: data.state,
+                data: data.data,
+              };
+            });
           }}>
           connection check
         </button>
@@ -99,8 +109,9 @@ function Main() {
       {/* form */}
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '50px' }}>
-        <h3>1. logiscustom, hospital 작업 중</h3>
-        <h3>2. 로그 작업</h3>
+        <h3>1. 로그 작업</h3>
+        <h3>2. 동시성 문제 해결 필요</h3>
+        <h3>3. 테스트 필요</h3>
       </div>
 
       {/* CARD */}

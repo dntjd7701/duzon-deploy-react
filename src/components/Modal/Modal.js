@@ -4,7 +4,7 @@ import { Context } from '../../context/Context';
 import axios from 'axios';
 import Loading from '../Loading/Loading';
 
-const Modal = ({ title }) => {
+const Modal = () => {
   const { modal, setModal, url } = useContext(Context);
   const [loading, setLoading] = useState(false);
 
@@ -32,7 +32,7 @@ const Modal = ({ title }) => {
 
   return modal.open ? (
     <div className='modal'>
-      {title ? <h2>{title}</h2> : <h2> {isSuccess() ? '✅ 배포성공' : modal.state === -1 ? '❗️빌드실패' : '🚫 배포실패'} </h2>}
+      {modal.title ? <h2>{modal.title}</h2> : <h2> {isSuccess() ? '✅ 배포성공' : modal.state === -1 ? '❗️빌드실패' : '🚫 배포실패'} </h2>}
       {!isSuccess() && (
         <button
           className='reDeploy-button'
