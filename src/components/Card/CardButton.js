@@ -60,6 +60,7 @@ const CardButton = ({ module, target }) => {
   };
   return (
     <button
+      className='card-button'
       disabled={['hospital'].includes(module)}
       key={target}
       id={target}

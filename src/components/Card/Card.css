@@ -29,12 +29,13 @@
     font-size: 2.5rem; /* 변경된 부분 */
   }
 
-  .card-button {
+  .card-button-wrapper {
     display: flex;
     justify-content: space-around;
     width: 100%;
     margin-top: 20px; /* 변경된 부분 */
-    button {
+
+    .card-button {
       width: 80px;
       &:hover {
         background-color: rgba(183, 240, 177, 1);
@@ -47,51 +48,3 @@
     }
   }
 }
-
-/* .card-wrapper {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(25%, auto));
-  gap: 100px 0px;
-  justify-items: center;
-  align-items: center;
-  position: relative;
-
-  .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-    width: 300px;
-    background-color: #99b2a0;
-    border-radius: 20px;
-    box-shadow: 15px 20px 30px rgb(197 239 214);
-    transition: all 0.5s ease;
-
-    .card-label {
-      text-decoration: none;
-      cursor: pointer;
-      color: white;
-      padding: 40px;
-      font-size: 2.5rem;
-    }
-
-    .card-button {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-      button {
-        &:hover {
-          background-color: rgba(183, 240, 177, 1);
-        }
-        cursor: pointer;
-        width: 40%;
-        height: 50px;
-        border: 1px solid black;
-        border-radius: 10%;
-        background-color: transparent;
-      }
-    }
-  }
-} */

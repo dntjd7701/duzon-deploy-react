@@ -17,7 +17,7 @@ const Card = ({ module }) => {
         rel='noreferrer'>
         {module}
       </a>
-      <div className='card-button'>
+      <div className='card-button-wrapper'>
         {['front', 'back'].map((target) => {
           return (
             <CardButton
@@ -28,6 +28,7 @@ const Card = ({ module }) => {
           );
         })}
         <button
+          className='card-button'
           disabled={!oldServerModules.includes(module)}
           key={'restart'}
           id={'restart'}
