@@ -29,7 +29,8 @@ function Main() {
   };
 
   useEffect(() => {
-    const host = window.localStorage.getItem('HOST') || process.env.REACT_APP_HOST;
+    // const host = window.localStorage.getItem('HOST') || process.env.REACT_APP_HOST;
+    const host = process.env.REACT_APP_HOST;
     setFormData(host);
     setUrl(host);
   }, []);
@@ -40,13 +41,12 @@ function Main() {
 
   const handleChange = (event) => {
     const { value } = event.target;
-    console.debug('value:', value);
     setFormData(value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    window.localStorage.setItem('HOST', `${formData}`);
+    // window.localStorage.setItem('HOST', `${formData}`);
     setUrl(formData);
   };
 

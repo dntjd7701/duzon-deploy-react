@@ -32,7 +32,7 @@ const Modal = () => {
 
   return modal.open ? (
     <div className='modal'>
-      <h2> {isSuccess() ? '✅ 배포성공' : '🚫 배포실패'} </h2>
+      <h2> {isSuccess() ? '✅ 배포성공' : modal.state === -1 ? '❗️빌드실패' : '🚫 배포실패'} </h2>
       {!isSuccess() && (
         <button
           className='reDeploy-button'

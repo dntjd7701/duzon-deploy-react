@@ -6,7 +6,12 @@ const CardWrapper = ({ modules }) => {
   return (
     <div className='card-wrapper'>
       {modules.map((module) => {
-        return <Card module={module} />;
+        return (
+          <Card
+            key={module}
+            module={module}
+          />
+        );
       })}
     </div>
   );
