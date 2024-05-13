@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Context } from '../../context/Context';
 import axios from 'axios';
 import Loading from '../Loading/Loading';
+import { oldServerModules } from '../../Utils/Utils';
 
 const CardButton = ({ module, target }) => {
   const { url, setModal } = useContext(Context);
@@ -41,27 +42,37 @@ const CardButton = ({ module, target }) => {
     }
   };
 
+  const restart = async () => {
+    const { data } = await axios.post(`https://${url}/restart`, { module, target });
+    return data;
+  };
+
   const handlButtonClick = async (e) => {
     const target = e.target.id;
     toggleLoading(target);
-    const result = await build();
-    console.debug('result:', result);
-    setModal((prevState) => {
-      return {
-        ...prevState,
-        open: true,
-        state: result.state,
-        data: result.data,
-        module,
-        target,
-      };
-    });
+    let result;
+    if (target === 'restart') {
+      result = await restart();
+    } else {
+      result = await build();
+      console.debug('result:', result);
+      setModal((prevState) => {
+        return {
+          ...prevState,
+          open: true,
+          state: result.state,
+          data: result.data,
+          module,
+          target,
+        };
+      });
+    }
     toggleLoading(target);
   };
   return (
     <button
       className='card-button'
-      disabled={['hospital'].includes(module)}
+      disabled={target === 'restart' && !oldServerModules.includes(module)}
       key={target}
       id={target}
       onClick={handlButtonClick}>

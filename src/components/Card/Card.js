@@ -1,11 +1,8 @@
 import React from 'react';
-import CardButton from './CardButton';
 import './Card.css';
-import { oldServerModules } from '../../Utils/Utils';
+import CardButton from './CardButton';
 
 const Card = ({ module }) => {
-  const handleRestartBtn = () => {};
-
   return (
     <div
       key={module}
@@ -18,7 +15,7 @@ const Card = ({ module }) => {
         {module}
       </a>
       <div className='card-button-wrapper'>
-        {['front', 'back'].map((target) => {
+        {['front', 'back', 'restart'].map((target) => {
           return (
             <CardButton
               key={target}
@@ -27,16 +24,6 @@ const Card = ({ module }) => {
             />
           );
         })}
-        <button
-          className='card-button'
-          disabled={!oldServerModules.includes(module)}
-          key={'restart'}
-          id={'restart'}
-          onClick={handleRestartBtn}>
-          {/* {loading.toggle && target === loading.target ? <Loading /> : target */}
-          {/* } */}
-          Restart
-        </button>
       </div>
     </div>
   );
