@@ -67,6 +67,7 @@ function Main() {
         />
       </div>
 
+      {/* form */}
       <form
         className={'form'}
         onSubmit={handleSubmit}>
@@ -95,6 +96,11 @@ function Main() {
           Amaranth10 개발 서버 매니저
         </a>
       </form>
+      {/* form */}
+
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '50px' }}>
+        <h3>1. logiscustom, hospital 작업 중</h3>
+      </div>
 
       {/* CARD */}
       <CardWrapper modules={modules} />
