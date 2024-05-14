@@ -68,16 +68,18 @@ function Main() {
       <form
         className={'form'}
         onSubmit={handleSubmit}>
-        <label>
-          HOST:
-          <input
-            type='text'
-            name='host'
-            value={formData}
-            onChange={handleChange}
-          />
-        </label>
-        <button type='submit'>Submit</button>
+        <div>
+          <label>
+            HOST:
+            <input
+              type='text'
+              name='host'
+              value={formData}
+              onChange={handleChange}
+            />
+          </label>
+          <button type='submit'>Submit</button>
+        </div>
         <button
           onClick={async () => {
             console.debug('url:', url);
@@ -95,8 +97,7 @@ function Main() {
           connection check
         </button>
         <a
-          style={{ textDecoration: 'none', color: 'white', cursor: 'pointer' }}
-          className='card-label'
+          className='Amaranth10-manager'
           href={`https://dev.amaranth10.co.kr/devservermanager/`}
           target='_blank'
           rel='noreferrer'>
@@ -106,9 +107,8 @@ function Main() {
       {/* form */}
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '50px' }}>
-        <h3>1. 로그 작업</h3>
-        <h3>2. 동시성 문제 해결 필요</h3>
-        <h3>3. 테스트 필요</h3>
+        <h3>1. 동시성 문제 해결 필요</h3>
+        <h3>2. 테스트 필요</h3>
       </div>
 
       {/* CARD */}
