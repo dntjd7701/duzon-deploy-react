@@ -108,7 +108,8 @@ function Main() {
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '50px' }}>
         <h3>1. 동시성 문제 해결 필요</h3>
-        <h3>2. 테스트 필요</h3>
+        <h3>2. logiscustom 배포 확인 필요</h3>
+        <h3>3. 신개발서버 배포 시, 배포 버튼 추가 예정(동시 배포 시 문제 발생 추정)</h3>
       </div>
 
       {/* CARD */}
